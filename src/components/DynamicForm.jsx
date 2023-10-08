@@ -38,17 +38,15 @@ function DynamicForm() {
     console.log(hasEmptyField);
 
     // if (!hasEmptyField) {
-      // Append the current formFields to formData
-      setFormData((prevData) => [...prevData,formFields ]);
-      
-      // Reset the formFields array
-      setFormFields([]);
+    // Append the current formFields to formData
+    setFormData((prevData) => [...prevData, formFields]);
+
+    // Reset the formFields array
+    setFormFields([]);
     // } else {
     //   console.log("One or more fields are empty.");
     // }
-    
   };
-
 
   const addField = (type) => {
     const id = Date.now(); // Generate a unique identifier
@@ -61,7 +59,7 @@ function DynamicForm() {
     setFormFields([...formFields, newField]);
   };
 
-const saveFormConfiguration = () => {
+  const saveFormConfiguration = () => {
     // Save formFields as JSON data
     const jsonConfig = JSON.stringify(formData);
     // Store the JSON configuration in the state
@@ -78,7 +76,7 @@ const saveFormConfiguration = () => {
       console.error("Error loading configuration:", error);
     }
   };
-console.log(savedConfig)
+  console.log(savedConfig);
 
   const removeField = (id) => {
     const updatedFields = formFields.filter((field) => field.id !== id);
@@ -97,6 +95,7 @@ console.log(savedConfig)
               name={"name"}
               value={field.name || ""}
               onChange={(e) => handleFormChange(e, field.id)}
+              placeholder=" write any text value"
             />
             {isEmpty && <div className="error">This field is required.</div>}
           </div>
@@ -108,6 +107,7 @@ console.log(savedConfig)
               name={"age"}
               value={field.age || ""}
               onChange={(e) => handleFormChange(e, field.id)}
+              placeholder=" write any numeric value"
             />
             {isEmpty && <div className="error">This field is required.</div>}
           </div>
@@ -120,6 +120,7 @@ console.log(savedConfig)
               onChange={(e) => handleFormChange(e, field.id)}
               rows="4"
               cols="50"
+              placeholder=" write anything..."
             />
             {isEmpty && <div className="error">This field is required.</div>}
           </div>
@@ -220,7 +221,10 @@ console.log(savedConfig)
 
   return (
     <div className="App">
-        <h1 style={{margin:"auto",textAlign:"center",marginBottom:"10vh"}}> Dynamic Form Generator</h1>
+      <h1 style={{ margin: "auto", textAlign: "center", marginBottom: "10vh" }}>
+        {" "}
+        Dynamic Form Generator
+      </h1>
       <form onSubmit={submit}>
         {formFields.map((field) => renderField(field))}
       </form>
@@ -233,11 +237,10 @@ console.log(savedConfig)
         </select>
       </div>
       <br />
-      <div style={{display:"flex",justifyContent:"space-around"}}>
-
-      <button onClick={submit}>Submit</button>
-      <button onClick={saveFormConfiguration}>Save Configuration</button>
-      <button onClick={loadFormConfiguration}>Load Configuration</button>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <button onClick={submit}>Submit</button>
+        <button onClick={saveFormConfiguration}>Save Configuration</button>
+        <button onClick={loadFormConfiguration}>Load Configuration</button>
       </div>
     </div>
   );
