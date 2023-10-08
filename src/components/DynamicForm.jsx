@@ -6,7 +6,7 @@ function DynamicForm() {
   const [isEmpty, setIsEmpty] = useState(false);
   const [savedConfig, setSavedConfig] = useState(null); // To store the saved JSON configuration
 
-  const options = [
+  const formSelectOptions = [
     "text",
     "number",
     "textarea",
@@ -35,17 +35,18 @@ function DynamicForm() {
 
     // const hasEmptyField = formFields.some((field) => field.some);
     const hasEmptyField = formFields.some((field) => field.isEmpty);
-    console.log(hasEmptyField);
+    // console.log(hasEmptyField);
 
-    // if (!hasEmptyField) {
+    if (!hasEmptyField) {
     // Append the current formFields to formData
     setFormData((prevData) => [...prevData, formFields]);
+    alert("data added")
 
     // Reset the formFields array
     setFormFields([]);
-    // } else {
-    //   console.log("One or more fields are empty.");
-    // }
+    } else {
+      console.log("One or more fields are empty.");
+    }
   };
 
   const addField = (type) => {
@@ -65,6 +66,9 @@ function DynamicForm() {
     // Store the JSON configuration in the state
     setSavedConfig(jsonConfig);
   };
+  console.log(savedConfig)
+  console.log(formData)
+
 
   const loadFormConfiguration = () => {
     // Load formFields from JSON data (for example, a saved configuration)
@@ -76,7 +80,6 @@ function DynamicForm() {
       console.error("Error loading configuration:", error);
     }
   };
-  console.log(savedConfig);
 
   const removeField = (id) => {
     const updatedFields = formFields.filter((field) => field.id !== id);
@@ -231,7 +234,7 @@ function DynamicForm() {
       <div>
         <select onChange={(e) => addField(e.target.value)}>
           <option>Please choose one option</option>
-          {options.map((option, index) => (
+          {formSelectOptions.map((option, index) => (
             <option key={index}>{option}</option>
           ))}
         </select>
